@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- bu yazılım Dr. Zafer Akçalı tarafından oluşturulmuştur -->
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Web of Science Sitesi Kuklacısı - PuppetWOS (Plus) V2.50</title>
+	<link rel="stylesheet" href="style.css" type="text/css">
+  </head>
+  <body>
+Web of Science'da AdvancedSearch arama kutusuna yazılacak metni giriniz<br />
+	<textarea id="advSearch" rows = "20" cols = "100" name = "Uzun Yazı" id="searchText"></textarea> <br />
+	<button id="gotoWOS" disabled="true" >Yukarıda yazanı ara</button>  Web of Science sitesine göndererek, sizin yerinize aratır<br />  
+    Hazır arama metinleri. Seçerseniz sayfa başındaki kutuya aktarılacaktır. <br />  
+<select id="selectDepartment">
+	<option value="">Anabilim / Bilim Dalı / Şehir Seçiniz</option> 
+	<!-- rest is created by window.onload = async function()-->
+</select> 
+<br /> 
+<label for="Akademisyen seçimi">Akademisyen ismini veya bölümünü yazarak seçiniz</label>  <br />
+<input list="academicians" id="selectAcademician"/>  <!-- onchange dosesn't focus, use oninput -->
+<button id="deleteAcad" >Sil</button> 
+
+<datalist id="academicians">
+	<!-- rest is created by window.onload = async function()-->
+</datalist>
+<br />
+Akademisyenin sadece üniversitem adına yaptığı yayınlar <input type="checkbox" id="exclusiveUni"><br/> 
+Yıla göre <input type="radio" name="sortfield" value="PY" checked> 
+Atıfa göre <input type="radio" name="sortfield" value="TC">  
+Başlangıç tarihi('YYYY-AA-GG')&nbsp;
+<input type="text" id="year1" size="4" maxlength="4">-
+<input type="text" id="month1" size="2" maxlength="2">-
+<input type="text" id="day1" size="2" maxlength="2"><br/>  
+
+&nbsp;&nbsp;&nbsp;&nbsp;Azalan <input type="radio" name="sortorder" value="D" checked>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Artan <input type="radio" name="sortorder" value="A">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Bitiş tarihi ('YYYY-AA-GG')&nbsp;&nbsp;
+<input type="text" id="year2" size="4" maxlength="4">-
+<input type="text" id="month2" size="2" maxlength="2">-
+<input type="text" id="day2" size="2" maxlength="2"> <br/>
+<button id="retrieveBtn" disabled="true" >Getir</button>
+Yukarıdaki parametrelere bakarak, işlenmek üzere getirir.
+<hr>
+<div id="bar-container">
+<div id="bar"></div>
+</div>
+<button id="printBtn" disabled="true" >Sen göster</button>
+<button id="toBoxBtn" disabled="true" >Kutuya yaz</button>
+Gelen makaleleri pencere açarak aşağıdaki parametrelere göre gösterir veya arama kutusuna yazar<br/> 
+&nbsp;&nbsp;&nbsp;Kayıt numarası olsun<input type="checkbox" id="prrecnum" checked> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Q1'leri seç<input type="checkbox" id="flagQ1" checked> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Makaleler gözüksün<input type="checkbox" id="flagarticles" checked><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bağlantılar olsun <input type="checkbox" id="prlinks" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q2'leri seç<input type="checkbox" id="flagQ2" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Makale olmayanlar gözüksün<input type="checkbox" id="flagnonarticles" ><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yazar sayısı olsun <input type="checkbox" id="nofauthors" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q3'leri seç<input type="checkbox" id="flagQ3" checked><br/>
+Q1-4/AH durumu olsun<input type="checkbox" id="prQH" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q4'leri seç<input type="checkbox" id="flagQ4"><br/> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yayın türü olsun<input type="checkbox" id="articletype" checked> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q?'leri seç<input type="checkbox" id="flagQx"><br/>
+&nbsp;&nbsp;&nbsp;WOS numarası olsun <input type="checkbox" id="WOSno" checked> &nbsp;&nbsp;&nbsp;AHCI'ları seç<input type="checkbox" id="flagAH">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Sadece Publons Linki-yazıyla <input type="checkbox" id="publonslink"><br/>
+<script>  
+	require('./renderer');
+</script>
+</body>
+</html>

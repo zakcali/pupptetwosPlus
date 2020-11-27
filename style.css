@@ -1,0 +1,21 @@
+#selectAcademician
+{
+ width:520px;   
+}
+#selectDepartment
+{
+ width:520px;   
+}
+#bar-container {
+  width: 500px;
+  height: 15px;
+  margin-left: 200px;
+  background-color: lightgray;
+}
+
+#bar {
+  width: 0;
+  height: 100%;
+  background-color: lightseagreen;
+  transition: width 0.1s;
+}
