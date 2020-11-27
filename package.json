@@ -1,6 +1,6 @@
 {
   "name": "puppetwosplus",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "WOS Advanced Search with puppeteer",
   "main": "main.js",
   "scripts": {
