@@ -34,7 +34,7 @@ var queryT = [];
 var academics = [[],[]];
 var rid; // researcherId
 var orcid; // ORCID
-const myUni = ' AND AD=(baskent univ)'
+const myUni = ' AND OG=(Baskent University)'
 const baseUrl='http://xxx.yyy.edu.tr/zzz/';
 const depList = document.querySelector ('#selectDepartment');
 const acadList = document.querySelector ('#selectAcademician');
