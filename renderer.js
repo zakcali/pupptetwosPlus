@@ -29,23 +29,13 @@ let timespanBegin='2020-01-01';
 let timespanEnd='2030-12-31';
 
 var editions = [];
-// flags for including/excluding WOS editions
-let fSCI=true; //Science Citation Index Expanded
-let fSSCI=true; //Social Sciences Citation Index
-let fAHCI=true; //Arts & Humanities Citation Index
-let fISTP=false; //Conference Proceedings Citation Index - Science
-let fISSHP=false; //Conference Proceedings Citation Index - Social Sciences
-let fIC=false;   // *** wos-lite isn't authorized for querying: IC edition: Index Chemicus **** //
-let fCCR=false;   // *** wos-lite isn't authorized for querying: CCR edition: WOS CCR Current Chemical *** //
-let fBSCI=false; // Book Citation Index - Science
-let fBHCI=false; // Book Citation Index - Social Sciences and Humanities
 
 var queryT = [];
 var academics = [[],[]];
 var rid; // researcherId
 var orcid; // ORCID
 const myUni = ' AND AD=(baskent univ)'
-const baseUrl='http://xxx.yyy.edu.tr/zzz/';
+const baseUrl='http://tip2.baskent.edu.tr/maya/';
 const depList = document.querySelector ('#selectDepartment');
 const acadList = document.querySelector ('#selectAcademician');
 const clearBtn = document.querySelector ('#deleteAcad');
@@ -90,7 +80,9 @@ copyToBox()
 ///////////////////// retrieve begins here /////////////////////////////////////
 async function retrieveArt() {
 advText=queryArea.value;
-if (advText==='') {return;}
+if (advText==='') {
+	alert ('Arama metni boş');
+	return 'Query Text is empty';}
 printBtn.disabled=true;
 retrieveBtn.disabled=true;
 toBoxBtn.disabled=true;
@@ -131,7 +123,8 @@ myConsole.log(timespanBegin,timespanEnd )
 getSid()
 .then(result1 => {return retrieveArticles();})
 .then(result2 => {printBtn.disabled=false; toBoxBtn.disabled=false;}) // you have all articles in pubArray, do whatever you want here
-.catch(error => {alert(error.message);}) // display error obtained from WOS server to the user
+.catch(error => {alert(error.message);
+}) // display error obtained from WOS server to the user
 .finally ( ()=> {retrieveBtn.disabled=false; })
 }
 
@@ -413,29 +406,32 @@ while(pubArray.length > 0) { // empty publication array before second and subseq
 while(editions.length > 0) { // empty edition array before second and subsequent searches
    editions.pop();
 }
-
 let retrieveParameters = [ {'count':'1', 'firstRecord':'1'}];
 let timeSpan = [{'begin': timespanBegin, 'end':timespanEnd}];
 
-if (fSCI) // flag for inncluding SCI edition
-	{editions.push({'collection':'WOS', 'edition':'SCI'});}
-if (fSSCI)
-	{editions.push({'collection':'WOS', 'edition':'SSCI'});}
-if (fAHCI)
-	{editions.push({'collection':'WOS', 'edition':'AHCI'});}
-if (fISTP)
-	{editions.push({'collection':'WOS', 'edition':'ISTP'});}
-if (fISSHP)
-	{editions.push({'collection':'WOS', 'edition':'ISSHP'});}
-if (fIC)
-	{editions.push({'collection':'WOS', 'edition':'IC'});}
-if (fCCR)
-	{editions.push({'collection':'WOS', 'edition':'CCR'});}
-if (fBSCI)
-	{editions.push({'collection':'WOS', 'edition':'BSCI'});}
-if (fBHCI)
-	{editions.push({'collection':'WOS', 'edition':'BHCI'});}
-
+let y=0; 
+// flags for including/excluding WOS editions
+if (document.querySelector('#flagSCI').checked) //Science Citation Index Expanded
+	{editions.push({'collection':'WOS', 'edition':'SCI'}); y++;}
+if (document.querySelector('#flagSSCI').checked) //Social Sciences Citation Index
+	{editions.push({'collection':'WOS', 'edition':'SSCI'}); y++;}
+if (document.querySelector('#flagAHCI').checked) //Arts & Humanities Citation Index
+	{editions.push({'collection':'WOS', 'edition':'AHCI'}); y++;}
+if (document.querySelector('#flagISTP').checked) //Conference Proceedings Citation Index - Science
+	{editions.push({'collection':'WOS', 'edition':'ISTP'}); y++;}
+if (document.querySelector('#flagISSHP').checked) //Conference Proceedings Citation Index - Social Sciences
+	{editions.push({'collection':'WOS', 'edition':'ISSHP'}); y++;}
+if (document.querySelector('#flagBSCI').checked) // Book Citation Index - Science
+	{editions.push({'collection':'WOS', 'edition':'BSCI'}); y++;}
+if (document.querySelector('#flagBHCI').checked) // Book Citation Index - Social Sciences and Humanities
+	{editions.push({'collection':'WOS', 'edition':'BHCI'}); y++;}
+// *** wos-lite isn't authorized for querying: IC edition: Index Chemicus **** //
+//	{editions.push({'collection':'WOS', 'edition':'IC'});}
+// *** wos-lite isn't authorized for querying: CCR edition: WOS CCR Current Chemical *** //
+//	{editions.push({'collection':'WOS', 'edition':'CCR'});}
+if (y==0) { 
+	alert ('En az bir dizin seçilmiş olmalı');
+	return 'editions not selected';}
 let search_object = {
   'queryParameters' : [{
 	'databaseId' : 'WOS',
