@@ -33,9 +33,10 @@ function createWindow () {
     }
 
   })
-
+// win.webContents.openDevTools();
   // and load the index.html of the app.
   win.loadFile('index.html')
+
   win.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
   if (frameName === 'modal') {
 
