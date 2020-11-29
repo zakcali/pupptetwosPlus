@@ -35,7 +35,7 @@ var academics = [[],[]];
 var rid; // researcherId
 var orcid; // ORCID
 const myUni = ' AND OG=(Baskent University)'
-const baseUrl='http://xxx.yyy.edu.tr/zzz/';
+const baseUrl='http://tip2.baskent.edu.tr/maya/';
 const depList = document.querySelector ('#selectDepartment');
 const acadList = document.querySelector ('#selectAcademician');
 const clearBtn = document.querySelector ('#deleteAcad');
@@ -309,7 +309,6 @@ function openWOSw (){
 	if (copyText != '') remote.getGlobal("makeSearch") (copyText) 
 }
 
-
 window.onload = async function() { 
 	
 let csvurl= baseUrl+'department-list.csv'; // from server
@@ -430,6 +429,7 @@ if (document.querySelector('#flagBHCI').checked) // Book Citation Index - Social
 // *** wos-lite isn't authorized for querying: CCR edition: WOS CCR Current Chemical *** //
 //	{editions.push({'collection':'WOS', 'edition':'CCR'});}
 if (y==0) { 
+	retrieveBtn.disabled=false;;
 	alert ('En az bir dizin seçilmiş olmalı');
 	return 'editions not selected';}
 let search_object = {
