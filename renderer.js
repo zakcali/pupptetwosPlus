@@ -38,7 +38,7 @@ var academics = [[],[]];
 var rid; // researcherId
 var orcid; // ORCID
 const myUni = ' AND OG=(Baskent University)'
-const baseUrl='http://xxx.yyy.edu.tr/zzz/';
+const baseUrl='http://tip2.baskent.edu.tr/maya/';
 const depList = document.querySelector ('#selectDepartment');
 const acadList = document.querySelector ('#selectAcademician');
 const clearBtn = document.querySelector ('#deleteAcad');
@@ -599,15 +599,14 @@ var j=i = 0;
 	quartile = 'Q?'; // unknown, not in the list
 	
 	// check quartile values against WOS dictionaries first, because they are exactly matched by InCites
-	if (document.querySelector(('#flagWOSDict').checked) && (wosq1List.indexOf(wos) > -1)  )
+	if ( document.querySelector('#flagWOSDict').checked && wosq1List.indexOf(wos) > -1)
 			{ quartile = 'Q1';}
-	else if ((document.querySelector('#flagWOSDict').checked) && (wosq2List.indexOf(wos) > -1) )
+	else if (document.querySelector('#flagWOSDict').checked && wosq2List.indexOf(wos) > -1) 
 			{ quartile = 'Q2';}
-	else if ((document.querySelector('#flagWOSDict').checked) && (wosq3List.indexOf(wos) > -1) )
+	else if (document.querySelector('#flagWOSDict').checked && wosq3List.indexOf(wos) > -1) 
 			{ quartile = 'Q3';}
-	else if ((document.querySelector('#flagWOSDict').checked) && (wosq4List.indexOf(wos) > -1 ) ) 
+	else if (document.querySelector('#flagWOSDict').checked && wosq4List.indexOf(wos) > -1 )  
 			{ quartile = 'Q4';}
-
 	// check quartile values against issn/eissn dictionaries if you didn't find in wos dictionary	
 	else if (document.querySelector('#flagissnDict').checked && (issnq1List.indexOf(issn) > -1 || eissnq1List.indexOf(eissn) > -1))
 			{ quartile = 'Q1';}
