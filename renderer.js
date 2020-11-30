@@ -1,5 +1,6 @@
 var Papa = require('papaparse');
-let {remote} = require('electron');
+const { ipcRenderer } = require('electron')
+// let {remote} = require('electron');
 const soap = require ('soap');
 const fs = require('fs');
 var nodeConsole = require('console');
@@ -11,8 +12,10 @@ const postArticle = '&DestLinkType=FullRecord&DestApp=WOS_CPL';
 const preCitation = 'https://gateway.webofknowledge.com/gateway/Gateway.cgi?GWVersion=2&SrcApp=Publons&SrcAuth=Publons_CEL&KeyUT=';
 const postCitation = '&DestLinkType=CitingArticles&DestApp=WOS_CPL';
 const preDoi='https://doi.org/';
+var wosq1List = wosq2List = wosq3List = wosq4List = []; //if you know publications Quartile values, you don't need to issn/eissn list
 var eissnq1List = eissnq2List = eissnq3List = eissnq4List = eissnahList = []; 
 var issnq1List = issnq2List = issnq3List = issnq4List = issnahList = []; 
+
 let wSID = '';
 var countLimit=0;  // 0=> there is no limit
 var printToScreen=true;
@@ -35,7 +38,7 @@ var academics = [[],[]];
 var rid; // researcherId
 var orcid; // ORCID
 const myUni = ' AND OG=(Baskent University)'
-const baseUrl='http://xxx.yyy.edu.tr/zzz/';
+const baseUrl='http://tip2.baskent.edu.tr/maya/';
 const depList = document.querySelector ('#selectDepartment');
 const acadList = document.querySelector ('#selectAcademician');
 const clearBtn = document.querySelector ('#deleteAcad');
@@ -53,7 +56,16 @@ const day2Text= document.querySelector('#day2');
 const sortFieldRadio = document.getElementsByName('sortfield');
 const sortOrderRadio = document.getElementsByName('sortorder');
 const progressBar = document.querySelector('#bar');
-
+const flagissnDict = document.querySelector ('#flagissnDict');
+const flagWOSDict = document.querySelector ('#flagWOSDict');
+flagissnDict.addEventListener('change', () => {
+	printBtn.disabled=true;
+	toBoxBtn.disabled=true;
+});
+flagWOSDict.addEventListener('change', () => {
+	printBtn.disabled=true;
+	toBoxBtn.disabled=true;
+});
 
 depList.addEventListener('change', () => {
 copyQueryText(depList.options[depList.selectedIndex].value);
@@ -64,8 +76,10 @@ copyAcademician()
 clearBtn.addEventListener('click', () => {
 clearAcademician()
 });
-gotoWOSBtn.addEventListener('click', () => {
-remote.getGlobal("makeSearch")(queryArea.value);
+gotoWOSBtn.addEventListener('click', async ()  => {
+// https://medium.com/@nornagon/electrons-remote-module-considered-harmful-70d69500f31
+// https://www.electronjs.org/docs/api/ipc-main
+const ipcresult = await ipcRenderer.invoke('makeSearch', queryArea.value); 
 });
 retrieveBtn.addEventListener('click', () => {
 retrieveArt()
@@ -383,6 +397,23 @@ issnq4List = data9.toString().replace(/[^\x00-\x7F]/g,'').replace(/\r/g, '').spl
 let response10 = await fetch (baseUrl+'issnahci.txt');
 let data10 = await response10.text();
 issnahList = data10.toString().replace(/[^\x00-\x7F]/g,'').replace(/\r/g, '').split("\n"); 
+// read quartile dictionaries exatly matches with WOS numbers
+let response11 = await fetch (baseUrl+'wosq1.txt');
+let data11 = await response11.text();
+wosq1List = data11.toString().replace(/[^\x00-\x7F]/g,'').replace(/\r/g, '').split("\n"); 
+
+let response12 = await fetch (baseUrl+'wosq2.txt');
+let data12 = await response12.text();
+wosq2List = data12.toString().replace(/[^\x00-\x7F]/g,'').replace(/\r/g, '').split("\n"); 
+
+let response13 = await fetch (baseUrl+'wosq3.txt');
+let data13 = await response13.text();
+wosq3List = data13.toString().replace(/[^\x00-\x7F]/g,'').replace(/\r/g, '').split("\n"); 
+
+let response14 = await fetch (baseUrl+'wosq4.txt');
+let data14 = await response14.text();
+wosq4List = data14.toString().replace(/[^\x00-\x7F]/g,'').replace(/\r/g, '').split("\n"); 
+
 
 retrieveBtn.disabled=false;
 
@@ -567,15 +598,26 @@ var j=i = 0;
 	if (eissn=='') {eissn ='ignore'} // danger!! empty eissn causes quartile to be Q1
 	quartile = 'Q?'; // unknown, not in the list
 	
-	if (issnq1List.indexOf(issn) > -1 || eissnq1List.indexOf(eissn) > -1)
+	// check quartile values against WOS dictionaries first, because they are exactly matched by InCites
+	if (document.querySelector(('#flagWOSDict').checked) && (wosq1List.indexOf(wos) > -1)  )
 			{ quartile = 'Q1';}
-	else if (issnq2List.indexOf(issn) > -1 || eissnq2List.indexOf(eissn) > -1)
+	else if ((document.querySelector('#flagWOSDict').checked) && (wosq2List.indexOf(wos) > -1) )
 			{ quartile = 'Q2';}
-	else if (issnq3List.indexOf(issn) > -1 || eissnq3List.indexOf(eissn) > -1)
+	else if ((document.querySelector('#flagWOSDict').checked) && (wosq3List.indexOf(wos) > -1) )
 			{ quartile = 'Q3';}
-	else if (issnq4List.indexOf(issn) > -1 || eissnq4List.indexOf(eissn) > -1)
+	else if ((document.querySelector('#flagWOSDict').checked) && (wosq4List.indexOf(wos) > -1 ) ) 
 			{ quartile = 'Q4';}
-	else if (issnahList.indexOf(issn) > -1 || eissnahList.indexOf(eissn) > -1)
+
+	// check quartile values against issn/eissn dictionaries if you didn't find in wos dictionary	
+	else if (document.querySelector('#flagissnDict').checked && (issnq1List.indexOf(issn) > -1 || eissnq1List.indexOf(eissn) > -1))
+			{ quartile = 'Q1';}
+	else if (document.querySelector('#flagissnDict').checked && (issnq2List.indexOf(issn) > -1 || eissnq2List.indexOf(eissn) > -1))
+			{ quartile = 'Q2';}
+	else if (document.querySelector('#flagissnDict').checked && (issnq3List.indexOf(issn) > -1 || eissnq3List.indexOf(eissn) > -1))
+			{ quartile = 'Q3';}
+	else if (document.querySelector('#flagissnDict').checked && (issnq4List.indexOf(issn) > -1 || eissnq4List.indexOf(eissn) > -1))
+			{ quartile = 'Q4';}
+	else if (document.querySelector('#flagissnDict').checked && (issnahList.indexOf(issn) > -1 || eissnahList.indexOf(eissn) > -1))
 			{ quartile = 'AH';}
 
 	pubArray[firstArray-1+i][0]=authors;

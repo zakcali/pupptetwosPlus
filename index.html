@@ -2,8 +2,11 @@
 <!-- bu yazılım Dr. Zafer Akçalı tarafından oluşturulmuştur -->
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>Web of Science Sitesi Kuklacısı - PuppetWOS (Plus) V2.52</title>
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; 
+	script-src 'self' 'unsafe-inline'; connect-src *">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<meta charset="UTF-8">
+    <title>Web of Science Sitesi Kuklacısı - PuppetWOS (Plus) V2.7.1</title>
 	<link rel="stylesheet" href="style.css" type="text/css">
   </head>
   <body>
@@ -58,9 +61,9 @@ Gelen makaleleri pencere açarak aşağıdaki parametrelere göre gösterir veya
 &nbsp;&nbsp;&nbsp;Kayıt numarası olsun<input type="checkbox" id="prrecnum" checked> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Q1'leri seç<input type="checkbox" id="flagQ1" checked> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Makaleler gözüksün<input type="checkbox" id="flagarticles" checked><br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bağlantılar olsun <input type="checkbox" id="prlinks" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q2'leri seç<input type="checkbox" id="flagQ2" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Makale olmayanlar gözüksün<input type="checkbox" id="flagnonarticles" ><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yazar sayısı olsun <input type="checkbox" id="nofauthors" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q3'leri seç<input type="checkbox" id="flagQ3" checked><br/>
-Q1-4/AH durumu olsun<input type="checkbox" id="prQH" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q4'leri seç<input type="checkbox" id="flagQ4"><br/> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yayın türü olsun<input type="checkbox" id="articletype" checked> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q?'leri seç<input type="checkbox" id="flagQx"><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yazar sayısı olsun <input type="checkbox" id="nofauthors" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q3'leri seç<input type="checkbox" id="flagQ3" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Q değeri için bir liste kullan<br/>
+Q1-4/AH durumu olsun<input type="checkbox" id="prQH" checked>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q4'leri seç<input type="checkbox" id="flagQ4">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WOS listesi kullan<input type="checkbox" id="flagWOSDict" checked><br/> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yayın türü olsun<input type="checkbox" id="articletype" checked> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Q?'leri seç<input type="checkbox" id="flagQx">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;issn/eissn listesi kullan<input type="checkbox" id="flagissnDict" checked><br/>
 &nbsp;&nbsp;&nbsp;WOS numarası olsun <input type="checkbox" id="WOSno" checked> &nbsp;&nbsp;&nbsp;AHCI'ları seç<input type="checkbox" id="flagAH">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 Sadece Publons Linki-yazıyla <input type="checkbox" id="publonslink"><br/>
 <script>  

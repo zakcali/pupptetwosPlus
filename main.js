@@ -1,4 +1,5 @@
 const electron = require('electron')
+const { ipcMain } = require('electron')
 const puppeteer = require('puppeteer-core')
 const os = require('os');
 const platform = os.platform();
@@ -29,7 +30,10 @@ function createWindow () {
     height: 800,
     webPreferences: {
       nodeIntegration: true,
-	  nativeWindowOpen: true
+	  nativeWindowOpen: true,
+	  enableRemoteModule: true,
+	  worldSafeExecuteJavaScript: true, 
+//	  contextIsolation: true //if enabled, you got "require not defined" error in index.html
     }
 
   })
@@ -37,7 +41,7 @@ function createWindow () {
   // and load the index.html of the app.
   win.loadFile('index.html')
 
-  win.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
+ win.webContents.on('new-window', (event, url, frameName, disposition, options, additionalFeatures) => {
   if (frameName === 'modal') {
 
     // open window as modal
@@ -71,7 +75,8 @@ const selectorView = 'a[title="Click to view the results"]'
 const wosurl = 'https://apps.webofknowledge.com'
 const advurl = 'https://apps.webofknowledge.com/WOS_AdvancedSearch_input.do?product=WOS&search_mode=AdvancedSearch'
 
-global.makeSearch = function(advtext) {
+ipcMain.handle('makeSearch', async (event, advtext) => {
+if (advtext =='') {return;}
 const queryText=advtext; // important to be able to paste instead of typing !!! https://stackoverflow.com/questions/47966510/how-to-fill-an-input-field-using-puppeteer
 try {
   (async () => {
@@ -164,4 +169,4 @@ try {
   console.error(err)
 }
 
-}
+})
