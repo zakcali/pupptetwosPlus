@@ -6,12 +6,12 @@
 	script-src 'self' 'unsafe-inline'; connect-src *">
 	<meta name="viewport" content="width=device-width,initial-scale=1">
 	<meta charset="UTF-8">
-    <title>Web of Science Sitesi Kuklacısı - PuppetWOS (Plus) V2.7.2</title>
+    <title>Web of Science Sitesi Kuklacısı - PuppetWOS (Plus) V2.7.5</title>
 	<link rel="stylesheet" href="style.css" type="text/css">
   </head>
   <body>
 Web of Science'da AdvancedSearch arama kutusuna yazılacak metni giriniz<br />
-	<textarea id="advSearch" rows = "20" cols = "100" name = "Uzun Yazı" id="searchText"></textarea> <br />
+	<textarea id="advSearch" rows = "19" cols = "100" name = "Uzun Yazı" id="searchText"></textarea> <br />
 	<button id="gotoWOS" disabled="true" >Yukarıda yazanı ara</button>  Web of Science sitesine göndererek, sizin yerinize aratır<br />  
     Hazır arama metinleri. Seçerseniz sayfa başındaki kutuya aktarılacaktır. <br />  
 <select id="selectDepartment">
@@ -52,6 +52,10 @@ BHCI<input type="checkbox" id="flagBHCI"><br/>
 <button id="retrieveBtn" disabled="true" >Getir</button>
 Yukarıdaki parametrelere bakarak, işlenmek üzere getirir.
 <hr>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<label id = "infoText" ></label> 
 <div id="bar-container">
 <div id="bar"></div>
 </div>

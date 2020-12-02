@@ -38,7 +38,7 @@ var academics = [[],[]];
 var rid; // researcherId
 var orcid; // ORCID
 const myUni = ' AND OG=(Baskent University)'
-const baseUrl='http://xxx.yyy.edu.tr/zzz/';
+const baseUrl='http://tip2.baskent.edu.tr/maya/';
 const depList = document.querySelector ('#selectDepartment');
 const acadList = document.querySelector ('#selectAcademician');
 const clearBtn = document.querySelector ('#deleteAcad');
@@ -58,6 +58,7 @@ const sortOrderRadio = document.getElementsByName('sortorder');
 const progressBar = document.querySelector('#bar');
 const flagissnDict = document.querySelector ('#flagissnDict');
 const flagWOSDict = document.querySelector ('#flagWOSDict');
+const infoText = document.querySelector ('#infoText');
 flagissnDict.addEventListener('change', () => {
 	printBtn.disabled=true;
 	toBoxBtn.disabled=true;
@@ -188,7 +189,7 @@ function createPrintWindow() {
 const modal = window.open('', 'modal', 'width=1024, height=750, scrollbars=yes, top=200, left=20')
 let filtered =[];
 modal.document.write('<hr>')
-modal.document.write('Between '+timespanBegin, ' and ', timespanEnd, ', number of articles indexed in Web of Science Collections you searched for are: ', arrayLength);
+modal.document.write(timespanBegin, ' ve ', timespanEnd, ' yılları arasında Web of Science sitesinde aradığınız makalelerin sayısı: ', arrayLength);
 modal.document.write('<hr>')
 for (k=0; k<arrayLength; k++) {
 ///////////////////////// display/skip filters ////////////////////////////
@@ -261,7 +262,7 @@ if (printToScreen==true){
 	filtered.push(publicationLine)
 		}
 }
-modal.document.write('number of filtered articles you searched for are: ', filtered.length);
+modal.document.write('İşaretlediğiniz özelliklere göre seçilen makale sayısı: ', filtered.length);
 modal.document.write('<hr>')
 filteredLength=filtered.length
 for (fp=0; fp<filteredLength; fp++){
@@ -482,10 +483,12 @@ let search_object = {
 	let progressPercentage= (100/windowCount)
 	for (kk=0; kk<arrayLength; kk++) {
 		pubArray.push([0]); // create empty elements on publication array
+		pubArray.push([0]); // create empty elements on publication array
 	}
 	queryId = result[0].return.queryId;
 	myConsole.log ('sessionID =', wSID, ',queryID =', queryId) 
 	myConsole.log ('Between '+timespanBegin, ' and ', timespanEnd, ', number of articles indexed in Web of Science Collections you searched for are:', arrayLength)
+	infoText.innerHTML ='Getirilecek yayın sayısı = '+ arrayLength
 	if (arrayLength===0) {
 		return
 	}
@@ -499,6 +502,7 @@ let search_object = {
 	}
 	myConsole.log ('all async accomplished');
 	progressBar.style.width = (100)+ "%";
+	infoText.innerHTML =arrayLength + ' yayının hepsi işlenmek üzere getirildi.'
 	return 'all async accomplished';
 
 async function retrieveHundred () {
@@ -513,17 +517,18 @@ let retrieve_object = {
 		'viewField': [{'fieldName': ['name', 'title']}]
 		}]
 }
-myConsole.log ('number of articles to be retrieved=', pageSize, ' starting with',retBase)
+// myConsole.log ('number of articles to be retrieved=', pageSize, ' starting with',retBase)
 	const rresult = await search_client.retrieveAsync(retrieve_object); 	//use rresult.return for retrieve(), use rresult[0].return for retrieveAsync()
 	currentWindow++;
 	//use rresult.return for retrieve(), use rresult[0].return for retrieveAsync()
-	myConsole.log (rresult[0].return.records[0].uid, retBase, 'current Window:', currentWindow) 	// WOS of first article
-	myConsole.log('start', retBase)
+//	myConsole.log (rresult[0].return.records[0].uid, retBase, 'current Window:', currentWindow) 	// WOS of first article
+//	myConsole.log('start', retBase)
+	infoText.innerHTML ='Okunuyor : '+ retBase
 	handleHundred (rresult[0].return, retBase); 
 retBase=retBase+100;
 retCount=retCount-100;
 progressBar.style.width = (progressPercentage*currentWindow  | 0)+ "%";
-	myConsole.log('percentage', progressPercentage*currentWindow  | 0)
+//	myConsole.log('percentage', progressPercentage*currentWindow  | 0)
 return 'page received and processed';
 } //end of retrieveHundred ()
 
