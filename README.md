@@ -27,7 +27,7 @@ issnq3.txt
 issnq4.txt
 issnahci.txt
 ```
-If you know a specific article's Quartile, you saw that in InCites, you can add this article's WOS number to wosq1.txt, or wosq2.txt, or, wosq3.txt, or wosq4.txt. I obtained those lists from InCites for my University. They're similar to "Endgame Nalimov Tablebases" in Chess. They are precise, an no need to look at issn/eissn dictionaries for this specific article
+If you know a specific article's Quartile, you obtained from InCites, you can add this article's WOS number to wosq1.txt, or wosq2.txt, or, wosq3.txt, or wosq4.txt. I obtained those lists from InCites for my institute. They're similar to "Endgame Nalimov Tablebases" in Chess. They are precise, and there is no need to look at issn/eissn dictionaries for this specific article
 
 # Beware
 
