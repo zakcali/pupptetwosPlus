@@ -1,7 +1,7 @@
 # pupptetwosplus
 puppetWOS + wos2quartile-converter
 
-nodejs backed Electron App, puppeteers Web of Science, and filters Q1-Q2-Q3-Q4-AHCI status, according to quartile dictionarie. Reads (fetches) quartile dictionaries, and advanced search (query) texts from a target url
+nodejs backed Electron App, uses puppeteer library for automatic "Web of Knowledge" site browsing, and filters Q1-Q2-Q3-Q4-AHCI status, according to quartile dictionaries. Reads (fetches) quartile dictionaries, and advanced search (query) texts from a (instutuion's) target url
 
 Please edit below code to read target files from your server:
 ```
