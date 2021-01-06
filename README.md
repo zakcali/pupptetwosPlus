@@ -31,4 +31,4 @@ If you know a specific article's Quartile, you obtained from InCites, you can ad
 
 # Beware
 
-Clarivate Analytics, the company owns Web of Knowledge, prevents more than 1.000.000 articles per year to be retrieved for an institution. So, do not publish compiled form of this software, unless you made a special deal with Clarivate Analytics
+Clarivate Analytics, the company owns Web of Knowledge, prevents more than 1.000.000 articles per year to be retrieved for an institution by using WokLite Soap Api. So, do not publish compiled form of this software, unless you made a special deal with Clarivate Analytics
