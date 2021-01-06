@@ -34,4 +34,4 @@ If you know a specific article's Quartile, you obtained from InCites, you can ad
 Clarivate Analytics, the company owns Web of Knowledge, prevents more than 1.000.000 articles per year to be retrieved for an institution by using WokSearchLite Soap Api:
 http://help.incites.clarivate.com/wosWebServicesLite/WebServicesLiteOver-viewGroup/Introduction.html
 
-So, do not publish compiled form of this software, unless you made a special deal with Clarivate Analytics
+So, do not publish compiled form of puppetwosplus, unless you made a special deal with Clarivate Analytics
